@@ -17,15 +17,24 @@
  */
 
 #include <stdint.h>
-#include<stm32f103x8.h>
-#include<GPIO_driver.h>
-#include<RCC_driver.h>
+#include "stm32f103x8.h"
+#include "GPIO_driver.h"
+#include "RCC_driver.h"
+#include "EXTI_Driver.h"
+#include "NVIC_Driver.h"
 
 GPIO_PINCONFIG_T led =
 {
 	.pin = 14,
 	.mode = GPIO_OUT_PUPL_MODE_50,
 	.alternatefunc = 0
+};
+
+GPIO_PINCONFIG_T PushButton =
+{
+		.pin = 0,
+		.mode = GPIO_PUPD_INPUT_MODE,
+		.alternatefunc = 0
 };
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
@@ -39,11 +48,32 @@ void delay(void){
 
 int main(void)
 {
+	/*enable push button clock connected to PA0*/
+	RCC_Enable_GPIO(GPIOA);
+
+	/*enable push button clock connected to PA0*/
 	RCC_Enable_GPIO(GPIOC);
+
+	/*Initializes LED Pin*/
+	GPIO_Init(GPIOA, &PushButton);
+
+	/*Initializes LED Pin*/
 	GPIO_Init(GPIOC, &led);
-	while(1){
-	GPIO_TogglePin(GPIOC,13);
-	delay();
+
+	/*Enable Line interrupt*/
+	EXTI_EnableInterrupt(0, EXTI_TRIGGER_RISING);
+
+	/*Enable interrupt for EXTI0*/
+	NVIC_EnableIRQ(EXTI0_IRQn);
+
 
 }
+
+void EXTI1_IRQHandler()
+{
+    if(EXTI_IsPending(EXTI0_IRQn)==1)
+    {
+    	GPIO_TogglePin(GPIOC, 13);
+    	EXTI_ClearPending(EXTI0_IRQn);
+    }
 }

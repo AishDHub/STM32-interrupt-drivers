@@ -74,9 +74,105 @@ typedef struct{
 #define GPIOD   ((GPIO_regdef*)GPIOD_BASEADDR)
 #define GPIOE   ((GPIO_regdef*)GPIOE_BASEADDR)
 
+/*EXTI register structure*/
+typedef struct
+{
+	volatile uint32_t IMR;//Interrupt mask register
+	volatile uint32_t EMR;//event mask register
+	volatile uint32_t RTSR;//rising trigger selection register
+	volatile uint32_t FTSR;//rising trigger selection register
+	volatile uint32_t SWIER;//software interrupt event register
+	volatile uint32_t PR;//pending register
+
+}EXTI_regdef;
+
+/*Macros related to EXTI peripherals*/
+#define EXTI_BASE_ADDR  0x40010400U
+#define EXTI            ((EXTI_regdef*)EXTI_BASE_ADDR)
+
+/*EXTI interrupt number*/
+#define EXTI0_IRQn           6
+#define EXTI1_IRQn           7
+#define EXTI2_IRQn           8
+#define EXTI3_IRQn           9
+#define EXTI4_IRQn           10
+#define EXTI9_5IRQn          23
+#define EXTI15_10IRQn        40
+
+
 /* RCC pointer to structure Macros accessing can be like RCC -> CFGR = 1 */
 
 #define RCC     ((RCC_regdef*)RCC_BASEADDR)
 
+/*Macros related to AFIO peripheral registers*/
+typedef struct
+{
+	volatile uint32_t AFIO_EVCR; //Event Control Register
+	volatile uint32_t AFIO_MAPR; //AF Remap and Debug I/O Configuration Register
+	volatile uint32_t AFIO_EXTICR[4];//external interrupt config register
+	volatile uint32_t AFIO_MAPR2;
+}AFIO_regdef;
+
+/*AFIO base address*/
+#define AFIO_BASE_ADDR 0x40010000U
+
+/*AFIO pointer to structure macro*/
+#define AFIO           ((AFIO_regdef*)AFIO_BASE_ADDR)
+
+/*NVIC Related Macros*/
+#define NVIC_BASE_ADDR      0xE000E100U
+
+
+/*this part of defining each registers, without defining each one we can use array instead to make it easier to use an array has one particular function register
+// NVIC ISER Registers
+#define NVIC_ISER0   ((volatile uint32_t*)0xE000E100U)
+#define NVIC_ISER1   ((volatile uint32_t*)0xE000E104U)
+#define NVIC_ISER2   ((volatile uint32_t*)0xE000E108U)
+
+
+// NVIC ICER Registers
+
+#define NVIC_ICER0   ((volatile uint32_t*)0xE000E180U)
+#define NVIC_ICER1   ((volatile uint32_t*)0xE000E184U)
+#define NVIC_ICER2   ((volatile uint32_t*)0xE000E188U)
+
+
+//NVIC ISPR Registers
+//Interrupt Set Pending
+
+#define NVIC_ISPR0   ((volatile uint32_t*)0xE000E200U)
+#define NVIC_ISPR1   ((volatile uint32_t*)0xE000E204U)
+#define NVIC_ISPR2   ((volatile uint32_t*)0xE000E208U)
+
+
+// NVIC ICPR Registers
+// Interrupt Clear Pending
+
+#define NVIC_ICPR0   ((volatile uint32_t*)0xE000E280U)
+#define NVIC_ICPR1   ((volatile uint32_t*)0xE000E284U)
+#define NVIC_ICPR2   ((volatile uint32_t*)0xE000E288U)
+
+
+//NVIC IABR Registers
+// Interrupt Active Bit
+
+#define NVIC_IABR0   ((volatile uint32_t*)0xE000E300U)
+#define NVIC_IABR1   ((volatile uint32_t*)0xE000E304U)
+#define NVIC_IABR2   ((volatile uint32_t*)0xE000E308U)
+
+
+defining as arrays for easier logic way access*/
+
+#define NVIC_ISER ((volatile uint32_t*)0xE000E100)
+#define NVIC_ICER ((volatile uint32_t*)0xE000E180)
+#define NVIC_ISPR ((volatile uint32_t*)0xE000E200)
+#define NVIC_ICPR ((volatile uint32_t*)0xE000E280)
+#define NVIC_IABR ((volatile uint32_t*)0xE000E300)
+
+/* NVIC PR Registers */
+#define NVIC_IPRx_BASE_ADDR ((volatile uint32_t*)0xE000E400U)
+
+/*NVIC STIR Registers*/
+#define NVIC_STIR_BASE_ADDR ((volatile uint8_t*)0xE000EE00U)
 
 #endif

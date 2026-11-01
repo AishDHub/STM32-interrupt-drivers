@@ -2,5 +2,8 @@
 "./Src/syscalls.o"
 "./Src/sysmem.o"
 "./Startup/startup_stm32f103c8tx.o"
+"./device drivers/Src/AFIO_drivers.o"
+"./device drivers/Src/EXTI_Driver.o"
 "./device drivers/Src/GPIO_driver.o"
+"./device drivers/Src/NVIC_Driver.o"
 "./device drivers/Src/RCC_driver.o"
