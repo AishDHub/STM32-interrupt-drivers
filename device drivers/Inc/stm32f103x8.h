@@ -150,7 +150,7 @@ typedef struct
 
 #define NVIC_ICPR0   ((volatile uint32_t*)0xE000E280U)
 #define NVIC_ICPR1   ((volatile uint32_t*)0xE000E284U)
-#define NVIC_ICPR2   ((volatile uint32_t*)0xE000E288U)
+#define NVIC_ICPR2   ((volatile uint32_t*)0xE000E288U)/
 
 
 //NVIC IABR Registers
@@ -174,5 +174,6 @@ defining as arrays for easier logic way access*/
 
 /*NVIC STIR Registers*/
 #define NVIC_STIR_BASE_ADDR ((volatile uint8_t*)0xE000EE00U)
+
 
 #endif

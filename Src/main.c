@@ -45,27 +45,31 @@ void delay(void){
 
 	for(uint32_t i=0; i<1777777; i++);
 }
+void interrupt_program(){
 
+	   /*enable push button clock connected to PA0*/
+		RCC_Enable_GPIO(GPIOA);
+
+		/*enable push button clock connected to PA0*/
+		RCC_Enable_GPIO(GPIOC);
+
+		/*Initializes LED Pin*/
+		GPIO_Init(GPIOA, &PushButton);
+
+		/*Initializes LED Pin*/
+		GPIO_Init(GPIOC, &led);
+
+		/*Enable Line interrupt*/
+		EXTI_EnableInterrupt(0, EXTI_TRIGGER_RISING);
+
+		/*Enable interrupt for EXTI0*/
+		NVIC_EnableIRQ(EXTI0_IRQn);
+
+}
 int main(void)
 {
-	/*enable push button clock connected to PA0*/
-	RCC_Enable_GPIO(GPIOA);
 
-	/*enable push button clock connected to PA0*/
-	RCC_Enable_GPIO(GPIOC);
-
-	/*Initializes LED Pin*/
-	GPIO_Init(GPIOA, &PushButton);
-
-	/*Initializes LED Pin*/
-	GPIO_Init(GPIOC, &led);
-
-	/*Enable Line interrupt*/
-	EXTI_EnableInterrupt(0, EXTI_TRIGGER_RISING);
-
-	/*Enable interrupt for EXTI0*/
-	NVIC_EnableIRQ(EXTI0_IRQn);
-
+	void interrupt_program();
 
 }
 
